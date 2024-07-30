@@ -361,6 +361,32 @@ class Tree:
         else:
             node.subtree_depth = 0
             return 0
+        
+
+    def get_tree_depth(self):
+        if self.nodes:
+            return self.update_subtree_depth(self.nodes[0])
+        return None
+
+    def update_subtree_bf(self,node):
+        max_arity = node.number_of_inputs
+
+        if node.children_id:
+            for child in node.children_id:
+                child_arity = self.update_subtree_bf(node.node_list[child])
+                max_arity = max(max_arity,child_arity)
+            return max_arity
+        return 0
+
+        
+
+    def get_tree_bf(self):
+        if self.nodes:
+            return self.update_subtree_bf(self.nodes[0])
+        return None    
+
+    def get_score(self):
+        return (self.get_tree_bf()*self.get_tree_depth())/10
 
     @staticmethod
     def grow_nodes(tree, nodes_to_grow):
