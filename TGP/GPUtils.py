@@ -24,6 +24,30 @@ import random
 import heapq
 import pickle
 
+
+
+def get_max_population_score(population):
+    S = []
+    for individual in population:
+        S.append(individual.tree.get_score())
+    return max(S)
+
+
+def get_max_population_bf(population):
+    BF = []
+    for individual in population:
+        BF.append(individual.tree.get_tree_bf())
+
+    return max(BF)
+
+
+def get_max_population_depth(population):
+    D = []
+    for individual in population:
+        D.append(individual.tree.get_tree_depth())
+    
+    return max(D)
+
 def binary_tournament(population, proportion, minimization=True):
     '''This function allows to easily use binary tournament selection method.
     Only arguments needed are a pointer to the pool from where individuals are going to be selected,
